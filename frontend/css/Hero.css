@@ -1,0 +1,38 @@
+.hero {
+  height: 100vh;
+  background: url('/olive-grove.jpg') center center/cover no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 4rem;
+  text-align: center;
+  color: white;
+  max-width: 700px;
+}
+
+.cta-buttons {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.cta-button {
+  background: #4a7c59;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+.cta-button.secondary {
+  background: #d4a373;
+  color: #222;
+}
+

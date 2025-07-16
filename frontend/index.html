@@ -1,61 +1,21 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Olive Tree NFT</title>
-  <style>
-    /* ... (keep your existing CSS) ... */
-    #qrScanner {
-      margin-top: 1rem;
-      border: 2px dashed var(--primary);
-    }
-  </style>
-  <script src="https://cdn.jsdelivr.net/npm/html5-qrcode@latest/dist/html5-qrcode.min.js"></script>
-</head>
-<body>
-  <h1>Olive Tree <span class="icp-accent">Tokenizer</span></h1>
-
-  <form id="mintForm">
-    <input type="text" id="cultivar" placeholder="Cultivar (e.g., Chemlali)" required />
-    <input type="text" id="location" placeholder="Location (e.g., Sfax, Tunisia)" required />
-    <input type="text" id="dna" placeholder="DNA Hash (e.g., sha256:a1b2c3...)" required />
-    
-    <!-- QR Scanner -->
-    <input type="text" id="qrData" placeholder="Scan QR to auto-fill" readonly />
-    <button type="button" id="scanQR">Scan QR</button>
-    <video id="qrScanner" style="display: none; width: 100%;"></video>
-
-    <button type="submit">Mint Tree NFT</button>
-  </form>
-
-  <script>
-    // QR Scanning
-    document.getElementById("scanQR").addEventListener("click", () => {
-      const scanner = new Html5QrcodeScanner("qrScanner", { fps: 10 });
-      scanner.render((data) => {
-        try {
-          const tree = JSON.parse(data);
-          document.getElementById("cultivar").value = tree.cultivar || "";
-          document.getElementById("location").value = tree.location || "";
-          document.getElementById("dna").value = tree.dna || "";
-          scanner.clear();
-          document.getElementById("qrScanner").style.display = "none";
-        } catch (e) {
-          alert("Invalid QR code. Scan a tree's QR tag.");
-        }
-      });
-    });
-
-    // Form submission
-    document.getElementById("mintForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const dna = document.getElementById("dna").value;
-      if (!dna.startsWith("sha256:")) {
-        alert("DNA hash must start with 'sha256:'");
-        return;
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>OliveBlocks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      html {
+        scroll-behavior: smooth;
       }
-      // Call Motoko canister here
-      console.log("Minting NFT...");
-    });
-  </script>
-</body>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/main.jsx"></script>
+  </body>
 </html>

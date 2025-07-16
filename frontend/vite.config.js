@@ -1,36 +1,28 @@
 import { defineConfig } from 'vite';
-import { fileURLToPath, URL } from 'url';
+import react from '@vitejs/plugin-react';
 import environment from 'vite-plugin-environment';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   base: './',
-  plugins: [environment('all', { prefix: 'CANISTER_' }), environment('all', { prefix: 'DFX_' })],
-  envDir: '../',
-  define: {
-    'process.env': process.env
-  },
-  optimizeDeps: {
-    esbuildOptions: {
-      define: {
-        global: 'globalThis'
-      }
-    }
-  },
-  resolve: {
-    alias: [
-      {
-        find: 'declarations',
-        replacement: fileURLToPath(new URL('../src/declarations', import.meta.url))
-      }
-    ]
+  plugins: [
+    react(),
+    environment('all', { prefix: 'CANISTER_' }),
+    environment('all', { prefix: 'DFX_' }),
+  ],
+  build: {
+    outDir: '../dist',
+    emptyOutDir: true,
   },
   server: {
+    host: '127.0.0.1',
     proxy: {
       '/api': {
         target: 'http://127.0.0.1:4943',
-        changeOrigin: true
-      }
+        changeOrigin: true,
+      },
     },
-    host: '127.0.0.1'
-  }
+  },
 });
+// This configuration file sets up Vite for a React project with environment variable handling and a proxy for API requests.
+// It specifies the output directory for the build, enables React support, and configures the development
